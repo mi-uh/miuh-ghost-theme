@@ -1,71 +1,88 @@
-# Casper
+# miuh-ghost-theme
 
-A classic theme for [Ghost](http://github.com/tryghost/ghost/), originally the default theme. These days, our default theme is [Source](http://github.com/tryghost/source/)
+A GDPR-compliant (DSGVO) fork of [TryGhost/Casper](https://github.com/TryGhost/Casper) 5.9.0.
 
-This is the latest development version of Casper! If you're just looking to download the latest release, head over to the [releases](https://github.com/TryGhost/Casper/releases) page.
+All external CDN requests have been removed so the theme can run without any third-party network calls.
 
-&nbsp;
-
-![screenshot-desktop](https://user-images.githubusercontent.com/1418797/183329195-8e8f2ee5-a473-4694-a813-a2575491209e.png)
-
-&nbsp;
-
-# First time using a Ghost theme?
-
-Ghost uses a simple templating language called [Handlebars](http://handlebarsjs.com/) for its themes.
-
-This theme has lots of code comments to help explain what's going on just by reading the code. Once you feel comfortable with how everything works, we also have full [theme API documentation](https://ghost.org/docs/themes/) which explains every possible Handlebars helper and template.
-
-**The main files are:**
-
-- `default.hbs` - The parent template file, which includes your global header/footer
-- `index.hbs` - The main template to generate a list of posts, usually the home page
-- `post.hbs` - The template used to render individual posts
-- `page.hbs` - Used for individual pages
-- `tag.hbs` - Used for tag archives, eg. "all posts tagged with `news`"
-- `author.hbs` - Used for author archives, eg. "all posts written by Jamie"
-
-One neat trick is that you can also create custom one-off templates by adding the slug of a page to a template file. For example:
-
-- `page-about.hbs` - Custom template for an `/about/` page
-- `tag-news.hbs` - Custom template for `/tag/news/` archive
-- `author-ali.hbs` - Custom template for `/author/ali/` archive
+Repository: [github.com/mi-uh/miuh-ghost-theme](https://github.com/mi-uh/miuh-ghost-theme)
 
 
-# Development
+## What changed vs. upstream Casper
 
-Casper styles are compiled using Gulp/PostCSS to polyfill future CSS spec. You'll need [Node](https://nodejs.org/), [Yarn](https://yarnpkg.com/) and [Gulp](https://gulpjs.com) installed globally. After that, from the theme's root directory:
+1. **jQuery loaded locally** -- served from `assets/js/lib/jquery-3.5.1.min.js` instead of `code.jquery.com`.
+2. **Local GDPR assets** in `assets/jsdelivr/`:
+   - `portal.min.js` (v2.58.1)
+   - `sodo-search.min.js` (v1.8.4)
+   - `sodo-search.min.css`
+   - `comments-ui.min.js` (v1.1.4)
+3. **`package.json`** -- name changed to `miuh-ghost-theme`, version `1.0.0`.
+4. **`gulpfile.js`** -- line 10 changed to `require('gulp-zip').default` (required for the zip task to work with gulp-zip 6.x).
 
-```bash
-# install dependencies
-yarn install
 
-# run development server
-yarn dev
+## Required Ghost configuration
+
+Ghost must be told to load portal, search, and comments from the local theme assets instead of jsDelivr. Add these environment variables to your `docker-compose.yml` (or Ghost config):
+
+```yaml
+portal__url: "/assets/jsdelivr/portal.min.js"
+sodoSearch__url: "/assets/jsdelivr/sodo-search.min.js"
+sodoSearch__styles: "/assets/jsdelivr/sodo-search.min.css"
+comments__url: "/assets/jsdelivr/comments-ui.min.js"
+privacy__useGravatar: "false"
+privacy__useGoogleFonts: "false"
+privacy__useRpcPing: "false"
 ```
 
-Now you can edit `/assets/css/` files, which will be compiled to `/assets/built/` automatically.
+Without these settings, Ghost will still fetch scripts from external CDNs, defeating the purpose of the local assets.
 
-The `zip` Gulp task packages the theme files into `dist/<theme-name>.zip`, which you can then upload to your site.
+
+## Build
 
 ```bash
-# create .zip file
-yarn zip
+npm install        # or: yarn install
+npx gulp build     # compiles CSS + JS into assets/built/
+npx gulp zip       # packages theme into dist/miuh-ghost-theme.zip
 ```
 
-# PostCSS Features Used
-
-- Autoprefixer - Don't worry about writing browser prefixes of any kind, it's all done automatically with support for the latest 2 major versions of every browser.
-- [Color Mod](https://github.com/jonathantneal/postcss-color-mod-function)
+Upload the resulting zip file via Ghost Admin > Settings > Design > Change theme > Upload.
 
 
-# SVG Icons
+## Development
 
-Casper uses inline SVG icons, included via Handlebars partials. You can find all icons inside `/partials/icons`. To use an icon just include the name of the relevant file, eg. To include the SVG icon in `/partials/icons/rss.hbs` - use `{{> "icons/rss"}}`.
+```bash
+npx gulp           # starts dev server with livereload
+```
 
-You can add your own SVG icons in the same manner.
+Edit files in `assets/css/` and `assets/js/` -- they compile to `assets/built/` automatically.
 
 
-# Copyright & License
+## Syncing upstream Casper changes
 
-Copyright (c) 2013-2026 Ghost Foundation - Released under the [MIT license](LICENSE).
+```bash
+# one-time setup
+git remote add upstream https://github.com/TryGhost/Casper.git
+
+# pull latest changes
+git fetch upstream
+git merge upstream/main
+```
+
+Resolve any conflicts in the files listed above (jQuery path in templates, package.json, gulpfile.js). The `assets/jsdelivr/` directory will never conflict since it does not exist upstream.
+
+
+## Updating the local GDPR assets
+
+When Ghost releases a new version, the bundled portal/search/comments versions may change. To update:
+
+1. Check current versions:
+   - https://cdn.jsdelivr.net/ghost/portal@latest
+   - https://cdn.jsdelivr.net/ghost/sodo-search@latest
+   - https://cdn.jsdelivr.net/ghost/comments-ui@latest
+   - Or check [Ghost's defaults.json](https://github.com/TryGhost/Ghost/blob/main/ghost/core/core/shared/config/defaults.json) for the version ranges Ghost expects.
+2. Download the new files into `assets/jsdelivr/`, replacing the old ones.
+3. Rebuild and re-upload the theme.
+
+
+## License
+
+MIT -- same as upstream Casper. See [LICENSE](LICENSE).
