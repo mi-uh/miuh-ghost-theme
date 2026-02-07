@@ -437,7 +437,7 @@ h2 {
 }
 @media (max-width: 600px) {
     h2 {
-        font-size: 2.3rem;
+        font-size: 2.4rem;
     }
 }
 
@@ -448,7 +448,7 @@ h3 {
 }
 @media (max-width: 600px) {
     h3 {
-        font-size: 1.7rem;
+        font-size: 2.0rem;
     }
 }
 
