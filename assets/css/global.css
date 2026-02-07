@@ -279,7 +279,7 @@ body {
     font-style: normal;
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
-    background: #fff;
+    background: var(--color-body-bg, #f4f1eb);
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

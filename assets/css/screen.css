@@ -37,11 +37,16 @@ production stylesheet in assets/built/screen.css
     --color-red: #f05230;
     --color-darkgrey: #15171A;
     --color-midgrey: #738a94;
-    --color-lightgrey: #f1f1f1;
+    --color-lightgrey: #f4f1eb;
     --color-secondary-text: #979797;
     --color-border: #e1e1e1;
     --color-wash: #e5eff5;
-    --color-darkmode: #151719;
+    --color-darkmode: #161614;
+    --color-header-footer: #161614;
+    --color-logo: #f4f1eb;
+    --color-nav-link: #f4f1eb;
+    --color-nav-divider: #15171A;
+    --color-body-bg: #f4f1eb;
 
     /*
     An accent color is also set by Ghost itself in
@@ -274,7 +279,7 @@ production stylesheet in assets/built/screen.css
     height: 88px;
     font-size: 1.6rem;
     line-height: 1.3em;
-    background-color: var(--color-darkgrey);
+    background-color: var(--color-header-footer);
     color: #fff;
     z-index: 150;
 }
@@ -377,12 +382,12 @@ production stylesheet in assets/built/screen.css
         width: 100%;
         height: 2px;
         content: "";
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: var(--color-nav-divider);
     }
 
     .is-head-stacked.has-cover .gh-head-menu::before,
     .is-head-stacked.has-cover .gh-head-menu::after {
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: var(--color-nav-divider);
     }
 
     .is-head-stacked .gh-head-menu::after {
@@ -410,9 +415,9 @@ production stylesheet in assets/built/screen.css
     display: block;
     font-family: var(--gh-font-heading, var(--font-serif));
     font-weight: 800;
-    font-size: 2.9rem;
+    font-size: 2.7rem;
     letter-spacing: -0.02em;
-    color: #7ac0ff;
+    color: var(--color-logo);
     white-space: nowrap;
 }
 
@@ -421,7 +426,7 @@ production stylesheet in assets/built/screen.css
 }
 
 .has-cover .gh-head-logo {
-    color: #7ac0ff;
+    color: var(--color-logo);
 }
 
 .gh-head-logo img {
@@ -458,10 +463,10 @@ production stylesheet in assets/built/screen.css
 .gh-head-menu .nav a {
     display: inline-block;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--color-nav-link);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
 }
 
 .gh-head-menu .nav a:hover {
@@ -583,22 +588,31 @@ production stylesheet in assets/built/screen.css
 
 .gh-head-link {
     font-weight: 500;
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     color: inherit;
+}
+
+.gh-head-link:hover {
+    color: var(--color-body-bg);
 }
 
 .gh-head-button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 20px;
+    padding: 8px 15px;
     height: 44px;
     font-weight: 600;
     letter-spacing: -0.005em;
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     border-radius: 48px;
-    color: #fff;
-    background: var(--ghost-accent-color);
+    border: 2px solid var(--color-body-bg);
+    color: var(--color-body-bg);
+}
+
+.gh-head-button:hover {
+    color: var(--color-midgrey);
+    border-color: var(--color-midgrey);
 }
 
 .has-cover .gh-head-button {
@@ -629,6 +643,7 @@ production stylesheet in assets/built/screen.css
     background-color: transparent;
     border: 0;
     outline: none;
+    color: var(--color-nav-link);
 }
 
 .gh-search:hover {
@@ -679,7 +694,7 @@ production stylesheet in assets/built/screen.css
     width: 24px;
     height: 1px;
     content: "";
-    background-color: var(--color-darkgrey);
+    background-color: var(--color-body-bg);
     transition: all 0.2s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.1008s;
 }
 
@@ -763,7 +778,7 @@ production stylesheet in assets/built/screen.css
     }
 
     #gh-head .nav a {
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         font-weight: 600;
         text-transform: none;
         color: #fff;
@@ -802,7 +817,7 @@ production stylesheet in assets/built/screen.css
 
     .gh-head-open.has-cover #gh-head,
     .gh-head-open.has-cover #gh-head .gh-head-actions {
-        background-color: var(--ghost-accent-color);
+        background-color: var(--color-header-footer);
     }
 
     .gh-head-open #gh-head .gh-head-menu,
@@ -833,7 +848,7 @@ production stylesheet in assets/built/screen.css
         gap: 12px;
         align-items: center;
         padding: max(4vmin, 20px) 0 max(4vmin, 28px);
-        background-color: #fff;
+        background-color: var(--color-header-footer);
     }
 
     .gh-head-open #gh-head :is(.gh-head-button, .gh-head-link) {
@@ -1375,7 +1390,7 @@ headings, text, images and lists. We deal with cards lower down. */
 }
 
 .has-serif-title:not([class*=" gh-font-heading"]):not([class^="gh-font-heading"]) .gh-content > [id] {
-    font-family: var(--gh-font-heading, var(--font-sans));
+    font-family: var(--gh-font-heading, var(--font-serif));
 }
 
 /* Add back a top margin to all headings, unless a heading
@@ -1414,10 +1429,10 @@ is the very first element in the post content */
 .gh-content > p {
     font-family: var(--gh-font-body, var(--font-mono));
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.6em;
-    letter-spacing: -0.01em;
-    word-spacing: -0.08em;
+    letter-spacing: -0.02em;
+    word-spacing: -0.02em;
 }
 
 .gh-content > p img {
@@ -1547,13 +1562,23 @@ is the very first element in the post content */
     .gh-content .kg-toggle-card .kg-toggle-content > ol,
     .gh-content .kg-toggle-card .kg-toggle-content > ul,
     .gh-content .kg-toggle-card .kg-toggle-content > p {
-        font-size: 1.8rem;
+        font-family: var(--gh-font-body, var(--font-mono));
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 1.6em;
+        letter-spacing: -0.02em;
+        word-spacing: -0.02em;
     }
 
     .gh-content .kg-product-card .kg-product-card-description > p,
     .gh-content .kg-product-card .kg-product-card-description > ol,
     .gh-content .kg-product-card .kg-product-card-description > ul {
+        font-family: var(--gh-font-body, var(--font-mono));
+        font-weight: 400;
         font-size: 1.6rem;
+        line-height: 1.6em;
+        letter-spacing: -0.02em;
+        word-spacing: -0.02em;
     }
 
     .gh-content blockquote:not([class])::before {
@@ -1779,7 +1804,7 @@ iframe.instagram-media + script + :not([id]) {
 .article-byline-meta .author-name {
     margin: 0 0 6px;
     font-family: var(--gh-font-heading, var(--font-sans));
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -2092,7 +2117,7 @@ iframe.instagram-media + script + :not([id]) {
     padding-top: 48px;
     padding-bottom: 140px;
     color: #fff;
-    background: color-mod(var(--color-darkgrey) l(-5%));
+    background: var(--color-header-footer);
 }
 
 .page-template .site-footer {
@@ -2102,8 +2127,8 @@ iframe.instagram-media + script + :not([id]) {
 .site-footer .inner {
     display: grid;
     grid-gap: 40px;
-    grid-template-columns: auto 1fr auto;
-    color: rgba(255,255,255,0.7);
+    grid-template-columns: 1fr 1fr 1fr;
+    color: var(--color-body-bg);
     font-size: 1.3rem;
 }
 
@@ -2178,7 +2203,7 @@ iframe.instagram-media + script + :not([id]) {
 /* ---------------------------------------------------------- */
 
 html.dark-mode body {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.85);
     background: var(--color-darkmode);
 }
 
@@ -2195,7 +2220,7 @@ html.dark-mode figcaption a {
 }
 
 html.dark-mode body .gh-head {
-    background: var(--color-darkmode);
+    background: var(--color-header-footer);
     color: #fff;
 }
 
@@ -2221,11 +2246,11 @@ html.dark-mode :is(.post-card-tags, .post-card-meta, .article-tag a, .byline-met
 }
 
 html.dark-mode .post-card-featured {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .post-card-title {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .post-card-excerpt {
@@ -2233,11 +2258,11 @@ html.dark-mode .post-card-excerpt {
 }
 
 html.dark-mode .pagination a {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .author-profile-location {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .author-profile-social-link:hover {
@@ -2245,7 +2270,7 @@ html.dark-mode .author-profile-social-link:hover {
 }
 
 html.dark-mode .article-title {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .article-excerpt {
@@ -2270,7 +2295,7 @@ html.dark-mode .author-profile-image path {
 }
 
 html.dark-mode .article-byline-meta .author-name a {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 html.dark-mode .no-image .author-social-link a {
@@ -2360,13 +2385,13 @@ html.dark-mode .kg-bookmark-card a.kg-bookmark-container:hover {
 }
 
 html.dark-mode .footer-cta-title {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 @media (max-width: 767px) {
     html.dark-mode .gh-head-open #gh-head,
     html.dark-mode .gh-head-open #gh-head .gh-head-actions {
-        background: var(--color-darkmode);
+        background: var(--color-header-footer);
     }
 }
 
@@ -2389,7 +2414,7 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color body .gh-head {
-        background: var(--color-darkmode);
+        background: var(--color-header-footer);
         color: #fff;
     }
 
@@ -2415,11 +2440,11 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color .post-card-featured {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .post-card-title {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .post-card-excerpt {
@@ -2427,11 +2452,11 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color .pagination a {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .author-profile-location {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .author-profile-social-link:hover {
@@ -2439,7 +2464,7 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color .article-title {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .article-excerpt {
@@ -2464,7 +2489,7 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color .article-byline-meta .author-name a {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     html.auto-color .no-image .author-social-link a {
@@ -2554,13 +2579,13 @@ html.dark-mode .footer-cta-title {
     }
 
     html.auto-color .footer-cta-title {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.85);
     }
 
     @media (max-width: 767px) {
         html.auto-color .gh-head-open #gh-head,
         html.auto-color .gh-head-open #gh-head .gh-head-actions {
-            background: var(--color-darkmode);
+            background: var(--color-header-footer);
         }
     }
 }
