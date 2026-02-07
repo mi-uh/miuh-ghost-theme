@@ -2388,6 +2388,12 @@ html.dark-mode .footer-cta-title {
     color: rgba(255, 255, 255, 0.85);
 }
 
+html.dark-mode .footer-cta-button {
+    background: color-mod(var(--color-darkmode) l(+15%));
+    border-color: color-mod(var(--color-darkmode) l(+20%));
+    color: rgba(255, 255, 255, 0.6);
+}
+
 @media (max-width: 767px) {
     html.dark-mode .gh-head-open #gh-head,
     html.dark-mode .gh-head-open #gh-head .gh-head-actions {
@@ -2580,6 +2586,12 @@ html.dark-mode .footer-cta-title {
 
     html.auto-color .footer-cta-title {
         color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .footer-cta-button {
+        background: color-mod(var(--color-darkmode) l(+15%));
+        border-color: color-mod(var(--color-darkmode) l(+20%));
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 767px) {
