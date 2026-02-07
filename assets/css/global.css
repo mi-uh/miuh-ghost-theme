@@ -288,7 +288,8 @@ body {
 
 ::selection {
     text-shadow: none;
-    background: #daf2fd;
+    background: rgba(25, 140, 255, 0.25);
+    color: inherit;
 }
 
 hr {
@@ -411,7 +412,7 @@ h5,
 h6 {
     margin-top: 0;
     line-height: 1.15;
-    font-family: var(--gh-font-heading, var(--font-sans));
+    font-family: var(--gh-font-heading, var(--font-serif));
     font-weight: 600;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.01em;
