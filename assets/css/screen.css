@@ -611,8 +611,8 @@ production stylesheet in assets/built/screen.css
 }
 
 .gh-head-button:hover {
-    color: var(--color-midgrey);
-    border-color: var(--color-midgrey);
+    color: var(--color-border);
+    border-color: var(--color-border);
 }
 
 .has-cover .gh-head-button {
