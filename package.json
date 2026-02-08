@@ -2,7 +2,7 @@
     "name": "miuh-ghost-theme",
     "description": "GDPR-compliant Ghost theme based on Casper",
     "demo": "https://demo.ghost.io",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "engines": {
         "ghost": ">=5.0.0"
     },
@@ -161,7 +161,7 @@
             },
             "email_signup_text": {
                 "type": "text",
-                "default": "Sign up for more like this.",
+                "default": "Nichts verpassen.",
                 "group": "post"
             },
             "show_recent_posts_footer": {
