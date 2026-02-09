@@ -3,7 +3,7 @@
    Customizations for michaeluhrich.xyz
    ============================================================
 
-   Imported at the end of screen.css via @import "custom.css".
+   Concatenated after screen.css via gulp-concat in gulpfile.js.
    Overrides Casper defaults by cascade position.
 
    1. Custom Properties
@@ -27,6 +27,9 @@
     --color-logo: #f4f1eb;
     --color-nav-link: #f4f1eb;
     --color-nav-divider: rgba(255, 255, 255, 0.06);
+
+    /* Dark mode — warm paper palette (overrides Casper cold #151719) */
+    --color-darkmode: #1e1b17;
 
     /* Header/Footer — Dark Editorial */
     --hf-accent: #99582a;
@@ -370,6 +373,17 @@ h1, h2, h3, h4, h5, h6 {
     transition: color 0.2s ease;
 }
 
+/* Mobile: single-column footer, hide dot separators */
+@media (max-width: 767px) {
+    .site-footer .inner {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer-nav li:not(:first-child) a::before {
+        display: none;
+    }
+}
+
 
 /* 7. Dark Mode
 /* ---------------------------------------------------------- */
@@ -378,7 +392,8 @@ html.dark-mode body {
     color: rgba(255, 255, 255, 0.85);
 }
 
-html.dark-mode body .gh-head {
+html.dark-mode body .gh-head,
+html.dark-mode body:not(.has-cover) .gh-head {
     background: var(--color-header-footer);
     color: #fff;
 }
@@ -416,9 +431,15 @@ html.dark-mode .footer-cta-title {
     color: rgba(255, 255, 255, 0.85);
 }
 
+/* Tags/dates — override Casper :is() l(-22%) which makes them too dark.
+   Must use :is() to match Casper's specificity (0,2,1 from .pagination .page-number) */
+html.dark-mode :is(.post-card-tags, .post-card-meta, .article-tag a, .byline-meta-content, .pagination .page-number) {
+    color: rgba(255, 255, 255, 0.6);
+}
+
 html.dark-mode .footer-cta-button {
-    background: color-mod(var(--color-darkmode) l(+15%));
-    border-color: color-mod(var(--color-darkmode) l(+20%));
+    background: #36312b;
+    border-color: #413b34;
 }
 
 html.dark-mode .site-footer {
@@ -427,7 +448,9 @@ html.dark-mode .site-footer {
 
 @media (max-width: 767px) {
     html.dark-mode .gh-head-open #gh-head,
-    html.dark-mode .gh-head-open #gh-head .gh-head-actions {
+    html.dark-mode .gh-head-open:not(.has-cover) #gh-head,
+    html.dark-mode .gh-head-open #gh-head .gh-head-actions,
+    html.dark-mode .gh-head-open:not(.has-cover) #gh-head .gh-head-actions {
         background: var(--color-header-footer);
     }
 }
@@ -437,7 +460,12 @@ html.dark-mode .site-footer {
 /* ---------------------------------------------------------- */
 
 @media (prefers-color-scheme: dark) {
-    html.auto-color body .gh-head {
+    html.auto-color body {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color body .gh-head,
+    html.auto-color body:not(.has-cover) .gh-head {
         background: var(--color-header-footer);
         color: #fff;
     }
@@ -475,9 +503,14 @@ html.dark-mode .site-footer {
         color: rgba(255, 255, 255, 0.85);
     }
 
+    /* Tags/dates — override Casper :is() l(-22%), must match specificity */
+    html.auto-color :is(.post-card-tags, .post-card-meta, .article-tag a, .byline-meta-content, .pagination .page-number) {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
     html.auto-color .footer-cta-button {
-        background: color-mod(var(--color-darkmode) l(+15%));
-        border-color: color-mod(var(--color-darkmode) l(+20%));
+        background: #36312b;
+        border-color: #413b34;
     }
 
     html.auto-color .site-footer {
@@ -486,7 +519,9 @@ html.dark-mode .site-footer {
 
     @media (max-width: 767px) {
         html.auto-color .gh-head-open #gh-head,
-        html.auto-color .gh-head-open #gh-head .gh-head-actions {
+        html.auto-color .gh-head-open:not(.has-cover) #gh-head,
+        html.auto-color .gh-head-open #gh-head .gh-head-actions,
+        html.auto-color .gh-head-open:not(.has-cover) #gh-head .gh-head-actions {
             background: var(--color-header-footer);
         }
     }
