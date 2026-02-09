@@ -1,0 +1,493 @@
+/* ============================================================
+   custom.css — miuh-ghost-theme
+   Customizations for michaeluhrich.xyz
+   ============================================================
+
+   Imported at the end of screen.css via @import "custom.css".
+   Overrides Casper defaults by cascade position.
+
+   1. Custom Properties
+   2. Global (Body, Selection, Typography)
+   3. Header (Dark Editorial)
+   4. Post Feed & Cards
+   5. Article Content
+   6. Footer
+   7. Dark Mode
+   ============================================================ */
+
+
+/* 1. Custom Properties
+/* ---------------------------------------------------------- */
+
+:root {
+    /* Colors — Old paper palette */
+    --color-lightgrey: #f4f1eb;
+    --color-body-bg: #f4f1eb;
+    --color-header-footer: #1a1714;
+    --color-logo: #f4f1eb;
+    --color-nav-link: #f4f1eb;
+    --color-nav-divider: rgba(255, 255, 255, 0.06);
+
+    /* Header/Footer — Dark Editorial */
+    --hf-accent: #99582a;
+    --hf-text-dim: rgba(244, 241, 235, 0.6);
+
+    /* Fonts — Three voices */
+    --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --font-mono: "SF Mono", "Fira Code", Menlo, Consolas, "Courier New", monospace;
+}
+
+
+/* 2. Global
+/* ---------------------------------------------------------- */
+
+body {
+    background: var(--color-body-bg, #f4f1eb);
+}
+
+::selection {
+    background: rgba(25, 140, 255, 0.25);
+    color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--gh-font-heading, var(--font-serif));
+}
+
+@media (max-width: 600px) {
+    h2 { font-size: 2.4rem; }
+    h3 { font-size: 2.0rem; }
+}
+
+
+/* 3. Header — Dark Editorial
+/* ---------------------------------------------------------- */
+
+.gh-head {
+    background-color: var(--color-header-footer);
+    color: #fff;
+    z-index: 150;
+    position: relative;
+    box-shadow: 0 1px 0 0 rgba(153, 88, 42, 0.15);
+}
+
+/* Scanlines — barely visible, texture only */
+.gh-head::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Logo */
+.gh-head-logo {
+    font-family: var(--gh-font-heading, var(--font-serif));
+    font-weight: 800;
+    color: var(--color-logo);
+    letter-spacing: -0.01em;
+    position: relative;
+    display: inline-block;
+    text-shadow: none;
+    transition: text-shadow 0.3s ease;
+}
+
+.gh-head-logo:hover {
+    color: var(--color-logo);
+    text-shadow: 0 0 12px rgba(153, 88, 42, 0.6), 0 0 30px rgba(153, 88, 42, 0.25);
+}
+
+.has-cover .gh-head-logo {
+    color: var(--color-logo);
+}
+
+/* Navigation */
+.gh-head-menu {
+    font-family: var(--font-sans);
+    font-weight: 400;
+}
+
+.gh-head-menu .nav a {
+    color: var(--hf-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 1.3rem;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+/* Accent underline on hover */
+.gh-head-menu .nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--hf-accent);
+    transition: width 0.3s ease;
+}
+
+.gh-head-menu .nav a:hover {
+    color: var(--color-nav-link);
+    opacity: 1;
+}
+
+.gh-head-menu .nav a:hover::after {
+    width: 100%;
+}
+
+/* Nav blink fix */
+@media (min-width: 992px) {
+    body:not(.is-dropdown-loaded) .gh-head-menu .nav > li {
+        opacity: 1;
+    }
+}
+
+/* Stacked header dividers */
+.is-head-stacked .gh-head-menu::before,
+.is-head-stacked .gh-head-menu::after {
+    background-color: var(--color-nav-divider);
+}
+
+.is-head-stacked.has-cover .gh-head-menu::before,
+.is-head-stacked.has-cover .gh-head-menu::after {
+    background-color: var(--color-nav-divider);
+}
+
+/* Actions — Sign in / Subscribe */
+.gh-head-link:hover {
+    color: var(--color-body-bg);
+}
+
+.gh-head-actions a:not([class*="gh-button"]) {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--hf-text-dim);
+    transition: color 0.2s ease;
+}
+
+.gh-head-actions a:not([class*="gh-button"]):hover {
+    color: var(--color-nav-link);
+}
+
+.gh-head-button {
+    background: transparent;
+    border: 1px solid rgba(153, 88, 42, 0.75);
+    color: var(--hf-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.gh-head-button:hover {
+    border-color: rgba(153, 88, 42, 0.85);
+    color: var(--color-nav-link);
+}
+
+.has-cover .gh-head-button {
+    background: transparent;
+    border: 1px solid rgba(153, 88, 42, 0.75);
+    color: var(--hf-text-dim);
+}
+
+/* Search */
+.gh-search {
+    color: var(--hf-text-dim);
+}
+
+.gh-search:hover {
+    color: var(--color-nav-link);
+    opacity: 1;
+}
+
+/* Burger */
+.gh-burger::before,
+.gh-burger::after {
+    background-color: rgba(244, 241, 235, 0.7);
+}
+
+.has-cover .gh-burger::before,
+.has-cover .gh-burger::after {
+    background-color: rgba(244, 241, 235, 0.7);
+}
+
+/* Desktop: consistent header font sizes */
+@media (min-width: 992px) {
+    .gh-head-actions a:not([class*="gh-button"]) {
+        font-size: 1.3rem;
+    }
+    .gh-head-actions .gh-button {
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    #gh-head .gh-head-logo {
+        font-size: 2.5rem;
+    }
+
+    #gh-head .gh-head-button {
+        text-transform: uppercase;
+    }
+
+    .gh-head-open.has-cover #gh-head,
+    .gh-head-open.has-cover #gh-head .gh-head-actions {
+        background-color: var(--color-header-footer);
+    }
+
+    .gh-head-open #gh-head .gh-head-actions {
+        background-color: var(--color-header-footer);
+    }
+}
+
+
+/* 4. Post Feed & Cards
+/* ---------------------------------------------------------- */
+
+.site-description:first-child {
+    font-family: var(--gh-font-heading, var(--font-mono));
+}
+
+.post-card-excerpt {
+    font-family: var(--gh-font-body, var(--font-serif));
+    letter-spacing: 0.01em;
+}
+
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .post-card-excerpt {
+    font-family: var(--gh-font-body, var(--font-serif));
+}
+
+/* Mono for meta information */
+.post-card-tags,
+.post-card-meta,
+.article-tag a,
+.byline-meta-content {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+
+/* 5. Article Content
+/* ---------------------------------------------------------- */
+
+.gh-content > blockquote:not([class]),
+.gh-content > ol,
+.gh-content > ul,
+.gh-content > dl,
+.gh-content > p {
+    font-family: var(--gh-font-body, var(--font-mono));
+    letter-spacing: -0.02em;
+    word-spacing: -0.02em;
+}
+
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content > blockquote,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content > ol,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content > ul,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content > dl,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content > p,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content .kg-callout-card .kg-callout-text,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content .kg-toggle-card .kg-toggle-content > ol,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content .kg-toggle-card .kg-toggle-content > ul,
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .gh-content .kg-toggle-card .kg-toggle-content > p {
+    font-family: var(--gh-font-body, var(--font-mono));
+}
+
+.has-sans-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .kg-blockquote-alt {
+    font-family: var(--gh-font-body, var(--font-mono));
+}
+
+@media (max-width: 650px) {
+    .gh-content > blockquote:not([class]),
+    .gh-content > ol,
+    .gh-content > ul,
+    .gh-content > dl,
+    .gh-content > p,
+    .gh-content .kg-callout-card .kg-callout-text,
+    .gh-content .kg-toggle-card .kg-toggle-content > ol,
+    .gh-content .kg-toggle-card .kg-toggle-content > ul,
+    .gh-content .kg-toggle-card .kg-toggle-content > p {
+        font-family: var(--gh-font-body, var(--font-mono));
+        letter-spacing: -0.02em;
+        word-spacing: -0.02em;
+    }
+
+    .gh-content .kg-product-card .kg-product-card-description > p,
+    .gh-content .kg-product-card .kg-product-card-description > ol,
+    .gh-content .kg-product-card .kg-product-card-description > ul {
+        font-family: var(--gh-font-body, var(--font-mono));
+        letter-spacing: -0.02em;
+        word-spacing: -0.02em;
+    }
+}
+
+
+/* 6. Footer
+/* ---------------------------------------------------------- */
+
+.site-footer {
+    background: var(--color-header-footer);
+    position: relative;
+    border-top: 1px solid var(--color-nav-divider);
+}
+
+/* Scanlines */
+.site-footer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.site-footer .inner {
+    grid-template-columns: 1fr 1fr 1fr;
+    color: var(--color-body-bg);
+}
+
+.site-footer-nav li:not(:first-child) a::before {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.site-footer a {
+    transition: color 0.2s ease;
+}
+
+
+/* 7. Dark Mode
+/* ---------------------------------------------------------- */
+
+html.dark-mode body {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode body .gh-head {
+    background: var(--color-header-footer);
+    color: #fff;
+}
+
+html.dark-mode .gh-burger::before,
+html.dark-mode .gh-burger::after {
+    background-color: rgba(244, 241, 235, 0.7);
+}
+
+html.dark-mode .post-card-featured {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .post-card-title {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .pagination a {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .author-profile-location {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .article-title {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .article-byline-meta .author-name a {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .footer-cta-title {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark-mode .footer-cta-button {
+    background: color-mod(var(--color-darkmode) l(+15%));
+    border-color: color-mod(var(--color-darkmode) l(+20%));
+}
+
+html.dark-mode .site-footer {
+    background: var(--color-header-footer);
+}
+
+@media (max-width: 767px) {
+    html.dark-mode .gh-head-open #gh-head,
+    html.dark-mode .gh-head-open #gh-head .gh-head-actions {
+        background: var(--color-header-footer);
+    }
+}
+
+
+/* 7b. Auto Color (prefers-color-scheme: dark)
+/* ---------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+    html.auto-color body .gh-head {
+        background: var(--color-header-footer);
+        color: #fff;
+    }
+
+    html.auto-color .gh-burger::before,
+    html.auto-color .gh-burger::after {
+        background-color: rgba(244, 241, 235, 0.7);
+    }
+
+    html.auto-color .post-card-featured {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .post-card-title {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .pagination a {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .author-profile-location {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .article-title {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .article-byline-meta .author-name a {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .footer-cta-title {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    html.auto-color .footer-cta-button {
+        background: color-mod(var(--color-darkmode) l(+15%));
+        border-color: color-mod(var(--color-darkmode) l(+20%));
+    }
+
+    html.auto-color .site-footer {
+        background: var(--color-header-footer);
+    }
+
+    @media (max-width: 767px) {
+        html.auto-color .gh-head-open #gh-head,
+        html.auto-color .gh-head-open #gh-head .gh-head-actions {
+            background: var(--color-header-footer);
+        }
+    }
+}
