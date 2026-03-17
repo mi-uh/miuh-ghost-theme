@@ -1,6 +1,6 @@
 # miuh-ghost-theme
 
-A GDPR-compliant (DSGVO) fork of [TryGhost/Casper](https://github.com/TryGhost/Casper) 5.9.0.
+A GDPR-compliant (DSGVO) fork of [TryGhost/Casper](https://github.com/TryGhost/Casper) 5.10.1.
 
 All external CDN requests have been removed so the theme can run without any third-party network calls.
 
