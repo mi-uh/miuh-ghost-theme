@@ -70,11 +70,23 @@ Admin if the automated deployment is unavailable.
 
 ## Updating local Ghost assets
 
-When Ghost changes its bundled Portal, Search, or Comments versions:
+  The currently vendored UI assets target Ghost 6.53.0:
 
-1. Check [Ghost's current defaults](https://github.com/TryGhost/Ghost/blob/main/ghost/core/core/shared/config/defaults.json).
-2. Replace the corresponding files in `assets/jsdelivr/`.
-3. Run `pnpm test` before opening a pull request.
+  | Asset | Version | SHA-256 |
+  | --- | --- | --- |
+  | Portal | 2.69.172 | `35bbd84abe447ac98db8ae343fa6b143d18da202f6ba0f85935e7d6a52543ff0` |
+  | Sodo Search JavaScript | 1.8.185 | `5587c82468e994caff2a30f6f1f7ef82d5ed55a58f94080caddd89a5ab326c5d` |
+  | Sodo Search CSS | 1.8.185 | `2ecd0eed40e84a931a1ce63d133cc24f5b25425d17541583441d4224b6532fc7` |
+  | Comments UI | 1.5.182 | `1ac77aa4ab2d936117e9c5eb9e9d7b845b501b2306b5b4a2c19fc03ec6b5b063` |
+
+  When updating these files:
+
+  1. Determine the Ghost version running in production.
+  2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.53.0/ghost/core/core/shared/config/defaults.json) from the matching Ghost release tag.
+  3. Resolve jsDelivr's version range and download that exact patch version.
+  4. Replace the corresponding files in `assets/jsdelivr/`.
+  5. Record the resolved versions and SHA-256 hashes in the table above.
+  6. Run `pnpm test:ci` before opening a pull request.
 
 ## License
 

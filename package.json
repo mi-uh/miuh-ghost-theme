@@ -2,7 +2,7 @@
     "name": "miuh-ghost-theme",
     "description": "GDPR-compliant Ghost theme based on Casper",
     "demo": "https://michaeluhrich.xyz/",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "engines": {
         "ghost": ">=5.0.0",
         "node": ">=22.12.0"
@@ -24,7 +24,7 @@
         "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then git push --follow-tags; else echo \"Uncomitted changes found.\" && exit 1; fi",
         "postship": "git fetch && gulp release"
     },
-    "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916",
+    "packageManager": "pnpm@11.15.0",
     "author": {
         "name": "Michael Uhrich",
         "email": "admin@michaeluhrich.xyz",
@@ -49,12 +49,12 @@
     "bugs": "https://github.com/mi-uh/miuh-ghost-theme/issues",
     "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
     "devDependencies": {
-        "@tryghost/release-utils": "0.8.1",
-        "@tryghost/theme-translations": "0.0.21",
-        "autoprefixer": "10.5.0",
+        "@tryghost/release-utils": "0.9.1",
+        "@tryghost/theme-translations": "0.0.22",
+        "autoprefixer": "10.5.2",
         "beeper": "2.1.0",
-        "cssnano": "8.0.1",
-        "gscan": "6.2.1",
+        "cssnano": "8.0.2",
+        "gscan": "6.4.2",
         "gulp": "5.0.1",
         "gulp-concat": "2.6.1",
         "gulp-livereload": "4.0.2",
@@ -62,7 +62,7 @@
         "gulp-uglify": "3.0.2",
         "gulp-zip": "6.1.0",
         "inquirer": "14.0.2",
-        "postcss": "8.5.15",
+        "postcss": "8.5.16",
         "postcss-color-mod-function": "4.1.1",
         "postcss-easy-import": "4.0.0",
         "pump": "3.0.4"

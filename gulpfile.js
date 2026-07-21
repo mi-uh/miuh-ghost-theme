@@ -90,6 +90,8 @@ function zipper(done) {
             '!yarn.lock',
             '!renovate.json',
             '!docs', '!docs/**',
+            '!AGENTS.md',
+            '!CLAUDE.md',
             '!assets/built/*.map',
             '!assets/built/global.css',
             '!gulpfile.js'
