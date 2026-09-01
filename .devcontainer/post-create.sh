@@ -7,7 +7,7 @@ sudo mkdir -p "$PNPM_HOME"
 sudo chown -R node:node "$PNPM_HOME" "${PWD}/node_modules"
 
 sudo corepack enable
-sudo corepack prepare pnpm@11.5.2 --activate
+corepack install
 
 pnpm config set store-dir "$PNPM_HOME/store"
 pnpm install --frozen-lockfile
