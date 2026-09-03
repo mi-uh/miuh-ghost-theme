@@ -28,6 +28,9 @@ jobs:
 
       - run: pnpm test:ci
 
+      - name: Verify generated assets are up to date
+        run: git diff --exit-code -- assets/built/
+
   required-checks-pass:
     name: Required checks pass
     if: always()
