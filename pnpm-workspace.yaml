@@ -2,6 +2,16 @@ allowBuilds:
   # Optional dtrace bindings for bunyan (a gscan dependency); not needed to build/test the theme.
   dtrace-provider: false
 
+overrides:
+  # @tryghost/release-utils still pulls uuid 9 through @tryghost/errors 1.x.
+  '@tryghost/errors@1.3.13>uuid': '11.1.1'
+
+audit:
+  ignore:
+    # gscan uses extract-zip through @tryghost/zip, which rejects symlink entries
+    # before extraction. Remove when that upstream dependency is replaced or fixed.
+    - GHSA-jmr9-qjv8-65gv
+
 # pnpm 11.5's default minimumReleaseAge supply-chain policy rejects packages
 # published within the last 24h. @tryghost/theme-translations is a first-party
 # Ghost dependency we pin exactly, so exclude its current version from the age
