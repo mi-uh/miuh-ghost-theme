@@ -70,20 +70,20 @@ Admin if the automated deployment is unavailable.
 
 ## Updating local Ghost assets
 
-  The currently vendored UI assets target Ghost 6.61.0 and were resolved on
-  2026-09-01:
+  The currently vendored UI assets target Ghost 6.65.0 and were resolved on
+  2026-09-26:
 
   | Asset | Version | SHA-256 |
   | --- | --- | --- |
-  | Portal | 2.71.66 | `3b50ace64b19b0ff8df27cbc6ba86349e9941e9fbf411964f646bad87bf70d0e` |
-  | Sodo Search JavaScript | 1.8.429 | `5587c82468e994caff2a30f6f1f7ef82d5ed55a58f94080caddd89a5ab326c5d` |
-  | Sodo Search CSS | 1.8.429 | `8ccd755b66f88bcac9aee9f9c0a0c97fea3610d71d222f3af122b8ef0a053e67` |
-  | Comments UI | 1.6.162 | `ccca5fd0abec8883312d6965914a94b437a3272ef7eefad0479e52b0344062fe` |
+  | Portal | 2.71.220 | `dd2d06197e8faf6408f327a24ff10ac529ee6184f0aa2cbfeb3ec0eea6fd88e9` |
+  | Sodo Search JavaScript | 1.8.584 | `cec87d6847c050ff6c30674c5f16053b857a4f237901734f93c5445d3fdd9e89` |
+  | Sodo Search CSS | 1.8.584 | `8ccd755b66f88bcac9aee9f9c0a0c97fea3610d71d222f3af122b8ef0a053e67` |
+  | Comments UI | 1.6.317 | `719774932c3a2fc4048fe9edf97a14e207e04876cce166e8867cc5e781c9cf00` |
 
   When updating these files:
 
   1. Determine the Ghost version running in production.
-  2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.61.0/ghost/core/core/shared/config/defaults.json) from the matching Ghost release tag.
+  2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.65.0/ghost/core/core/shared/config/defaults.json) from the matching Ghost release tag.
   3. Resolve jsDelivr's version range and download that exact patch version.
   4. Replace the corresponding files in `assets/jsdelivr/`.
   5. Record the resolved versions and SHA-256 hashes in the table above.
