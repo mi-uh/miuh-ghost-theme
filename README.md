@@ -9,6 +9,8 @@ UI assets locally to reduce third-party requests. Overall privacy and GDPR
 compliance still depend on the complete Ghost, server, analytics, and content
 configuration.
 
+[![Desktop preview of the miuh Ghost theme](assets/screenshot-desktop.jpg)](https://michaeluhrich.xyz/)
+
 ## Highlights
 
 - Warm editorial design with matching light and dark modes
@@ -17,6 +19,26 @@ configuration.
 - Generated production assets included in `assets/built/`
 - Automated validation and deployment to Ghost from `main`
 - Compatible with Ghost 6.x; package metadata supports Ghost 5 and newer
+
+## Installation and updates
+
+Build and validate the theme archive from a clean checkout:
+
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm test:ci
+```
+
+This creates `dist/miuh-ghost-theme.zip`. In Ghost Admin, open
+**Settings → Site → Theme**, select **Change theme**, and use **Upload theme**
+to upload and activate the archive.
+
+To update an existing installation, pull the latest changes from this
+repository, repeat the commands above, and upload the newly generated archive.
+Because this is a customized Casper fork, do not replace it with an automatic
+update of the official Casper theme. For this repository, merging to `main`
+also runs the validated production deployment described below.
 
 ## Required Ghost configuration
 
