@@ -17,7 +17,7 @@ configuration.
 - Custom styling isolated in `assets/css/custom.css` for easier upstream merges
 - Local Portal, Search, and Comments assets
 - Generated production assets included in `assets/built/`
-- Automated validation and deployment to Ghost from `main`
+- Automated validation on pull requests and `main`, with release-based deployment
 - Compatible with Ghost 6.x; package metadata supports Ghost 5 and newer
 
 ## Installation and updates
@@ -37,8 +37,9 @@ to upload and activate the archive.
 To update an existing installation, pull the latest changes from this
 repository, repeat the commands above, and upload the newly generated archive.
 Because this is a customized Casper fork, do not replace it with an automatic
-update of the official Casper theme. For this repository, merging to `main`
-also runs the validated production deployment described below.
+update of the official Casper theme. For this repository, publishing a GitHub
+release deploys its tagged revision through the production workflow described
+below.
 
 ## Required Ghost configuration
 
@@ -81,10 +82,11 @@ Node.js and pnpm toolchain.
 
 ## Delivery
 
-Pull requests run the theme test workflow. After a pull request is merged into
-`main`, GitHub Actions installs the locked dependencies, builds the theme archive,
-validates that exact archive with GScan, and deploys it to the protected
-`production` environment in Ghost.
+Pull requests and pushes to `main` run the theme test workflow. Publishing a
+GitHub release triggers production deployment from the tagged revision: GitHub
+Actions installs the locked dependencies, builds the theme archive, validates
+that exact archive with GScan, and deploys it to the protected `production`
+environment in Ghost. The production workflow can also be started manually.
 
 The version shown in Ghost comes from `package.json` and should be updated before
 merging a release. The generated ZIP can still be uploaded manually through Ghost
