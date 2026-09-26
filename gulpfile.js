@@ -95,7 +95,7 @@ function zipper(done) {
             '!assets/built/*.map',
             '!assets/built/global.css',
             '!gulpfile.js'
-        ]),
+        ], {encoding: false}),
         zip(filename),
         dest('dist/')
     ], handleError(done));

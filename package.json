@@ -1,6 +1,6 @@
 {
     "name": "miuh-ghost-theme",
-    "description": "GDPR-compliant Ghost theme based on Casper",
+    "description": "Privacy-focused Ghost theme based on Casper",
     "demo": "https://michaeluhrich.xyz/",
     "version": "1.4.5",
     "engines": {
