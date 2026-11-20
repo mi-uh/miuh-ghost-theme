@@ -1,50 +1,49 @@
 # miuh-ghost-theme
 
-A privacy-focused Ghost theme based on
-[TryGhost/Casper](https://github.com/TryGhost/Casper), used on
-[michaeluhrich.xyz](https://michaeluhrich.xyz/).
+Privacy-focused Ghost theme based on [Casper](https://github.com/TryGhost/Casper),
+used on [michaeluhrich.xyz](https://michaeluhrich.xyz/). Fonts and Ghost UI
+assets are served locally; full GDPR compliance still depends on the Ghost and
+server setup.
 
-The fork keeps its visual changes separate from Casper and serves selected Ghost
-UI assets locally to reduce third-party requests. Overall privacy and GDPR
-compliance still depend on the complete Ghost, server, analytics, and content
-configuration.
+<a href="https://michaeluhrich.xyz/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-desktop-dark.jpg">
+    <img alt="Desktop preview of the miuh Ghost theme" src="assets/screenshot-desktop.jpg">
+  </picture>
+</a>
 
-[![Desktop preview of the miuh Ghost theme in dark mode](assets/screenshot-desktop-dark.jpg)](https://michaeluhrich.xyz/)
+## Features
 
-## Highlights
+- Warm editorial design, light and dark mode
+- Self-hosted Source Serif 4, local Portal, Search and Comments
+- **Blog** page template (`custom-blog.hbs`): posts grouped by primary tag
+- **Homepage subheadline** setting below the site description
+- Custom styles isolated in `assets/css/custom.css`
 
-- Warm editorial design with matching light and dark modes
-- Custom styling isolated in `assets/css/custom.css` for easier upstream merges
-- Local Portal, Search, and Comments assets
-- Self-hosted Source Serif 4 font (SIL OFL 1.1), no third-party font requests
-- Generated production assets included in `assets/built/`
-- Automated validation on pull requests and `main`, with release-based deployment
-- Requires Ghost 6.x
+## Requirements
 
-## Installation and updates
+**Ghost 6.x**, **Node.js ≥ 22.12** with Corepack (pnpm is pinned in
+`package.json`). Optional: Dev Container in `.devcontainer/`.
 
-Build and validate the theme archive from a clean checkout:
+## Build
+
+Run in the repository root:
 
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
-pnpm test:ci
+pnpm dev       # watch and rebuild assets/built/
+pnpm test:ci   # build dist/miuh-ghost-theme.zip and validate with GScan
 ```
 
-This creates `dist/miuh-ghost-theme.zip`. In Ghost Admin, open
-**Settings → Site → Theme**, select **Change theme**, and use **Upload theme**
-to upload and activate the archive.
+Manual install: Ghost Admin → **Settings → Site → Theme → Change theme → Upload theme**.
 
-To update an existing installation, pull the latest changes from this
-repository, repeat the commands above, and upload the newly generated archive.
-Because this is a customized Casper fork, do not replace it with an automatic
-update of the official Casper theme. For this repository, publishing a GitHub
-release deploys its tagged revision through the production workflow described
-below.
+## Ghost setup
 
-## Required Ghost configuration
+### Server configuration
 
-Configure Ghost to use the local Portal, Search, and Comments assets:
+Environment variables for the Ghost container (e.g. `docker-compose.yml`).
+Without them Ghost loads these resources from external CDNs.
 
 ```yaml
 portal__url: "/assets/jsdelivr/portal.min.js"
@@ -56,87 +55,105 @@ privacy__useGoogleFonts: "false"
 privacy__useRpcPing: "false"
 ```
 
-Without these settings, Ghost may load the corresponding resources from its
-default external locations.
+Apply in the Ghost compose directory with `docker compose up -d ghost`. **The
+container is recreated; the site is briefly offline.**
 
-## Development
+### Admin settings
 
-Requirements: Node.js 22.12 or newer and Corepack. The pnpm version is pinned in
-`package.json`.
-
-```bash
-corepack enable
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-Useful commands:
-
-```bash
-pnpm build     # Build CSS and JavaScript into assets/built/
-pnpm test      # Build the archive and validate the theme with GScan
-pnpm zip       # Create dist/miuh-ghost-theme.zip
-```
-
-A VS Code Dev Container is available in `.devcontainer/` and provides the same
-Node.js and pnpm toolchain.
-
-## Delivery
-
-Pull requests and pushes to `main` run the theme test workflow. Publishing a
-GitHub release triggers production deployment from the tagged revision: GitHub
-Actions installs the locked dependencies, builds the theme archive, validates
-that exact archive with GScan, and deploys it to the protected `production`
-environment in Ghost. The production workflow can also be started manually.
-
-The version shown in Ghost comes from `package.json` and should be updated before
-merging a release. The generated ZIP can still be uploaded manually through Ghost
-Admin if the automated deployment is unavailable.
-
-## Updating local Ghost assets
-
-The currently vendored UI assets target Ghost 6.78.0 and were resolved on
-2026-11-20:
-
-| Asset | Version | SHA-256 |
+| Where | Setting | Value |
 | --- | --- | --- |
-| Portal | 2.72.36 | `bf97c0a94eb564f0d3192d9ee1ea7534a0ed82c109c5111630076aed1e715583` |
-| Sodo Search JavaScript | 1.9.7 | `5ff29320840e94565b12c15d90a4ab9c884a7e01783e17ac329f27dba3395688` |
-| Sodo Search CSS | 1.9.7 | `8351196b62e6c27858441427a27c8be4d08f0e2b3684c4c280de7bbfe2a2160a` |
-| Comments UI | 1.6.456 | `af76fd41bd86e030ddff5b7bfa627da0ae1aa7f4534184fb92270c0209a33c34` |
+| General | Publication language | `de` |
+| Design & branding → Brand | Accent color | `#8a4f25` |
+| Design & branding → Site wide | Navigation layout | Stacked |
+| | Title font / Body font | Elegant serif |
+| | Color scheme | Auto |
+| Design & branding → Homepage | Header style | Hidden |
+| | Feed layout | Classic |
 
-When updating these files:
+## Release
 
-1. Determine the Ghost version running in production.
-2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.78.0/ghost/core/shared/config/defaults.json)
-   from the matching Ghost release tag. Current tags keep it at
-   `ghost/core/shared/config/defaults.json`; older tags such as v6.65.0 use
-   `ghost/core/core/shared/config/defaults.json`.
-3. Resolve jsDelivr's version range and download that exact patch version.
-4. Replace the corresponding files in `assets/jsdelivr/`.
-5. Record the resolved versions and SHA-256 hashes in the table above.
-6. Run `pnpm test:ci` before opening a pull request.
+Deployment runs from a published GitHub release (workflow *Deploy Ghost Theme*,
+environment `production`). **The new theme is active immediately.**
 
-## Self-hosted font
+1. Bump `version` in `package.json` on a branch `release/vX.Y.Z`, open a PR and
+   merge it.
+2. Publish the release:
 
-Source Serif 4 is served from `assets/fonts/` under the SIL Open Font License
-1.1 (`assets/fonts/OFL.txt`). The files come from the npm package
-`@fontsource-variable/source-serif-4` 5.3.1 (variable weight and optical size,
-`opsz` builds) and were downloaded on 2026-11-20:
+   ```bash
+   gh release create vX.Y.Z --repo mi-uh/miuh-ghost-theme --target main --generate-notes
+   gh run watch --repo mi-uh/miuh-ghost-theme
+   ```
 
-| File | SHA-256 |
+3. Check the version in Ghost Admin and reload the site without cache.
+
+Fallback: upload `dist/miuh-ghost-theme.zip` manually.
+
+## Maintenance
+
+### Dependency updates
+
+Dependabot opens weekly PRs for npm packages and GitHub Actions. Merge them
+once the checks pass.
+
+### Syncing with Casper
+
+Prerequisite: remote `upstream` → `https://github.com/TryGhost/Casper.git`.
+
+```bash
+git switch main && git pull
+git fetch upstream
+git switch -c chore/sync-casper-upstream
+git merge upstream/main
+# lockfile conflict: take Casper's version, then reinstall
+git checkout --theirs pnpm-lock.yaml && pnpm install
+pnpm test:ci   # rebuilds assets/built/, commit the result
+```
+
+In `package.json`, keep the fork's name, version and metadata and the higher
+dependency versions. **Merge the PR with a merge commit**, never squash or
+rebase, or the next sync repeats the same conflicts.
+
+### Ghost UI assets
+
+Vendored for **Ghost 6.78.0** (resolved 2026-11-20):
+
+| File in `assets/jsdelivr/` | Version | SHA-256 |
+| --- | --- | --- |
+| `portal.min.js` | 2.72.36 | `bf97c0a94eb564f0d3192d9ee1ea7534a0ed82c109c5111630076aed1e715583` |
+| `sodo-search.min.js` | 1.9.7 | `5ff29320840e94565b12c15d90a4ab9c884a7e01783e17ac329f27dba3395688` |
+| `sodo-search.min.css` | 1.9.7 | `8351196b62e6c27858441427a27c8be4d08f0e2b3684c4c280de7bbfe2a2160a` |
+| `comments-ui.min.js` | 1.6.456 | `af76fd41bd86e030ddff5b7bfa627da0ae1aa7f4534184fb92270c0209a33c34` |
+
+Update after each Ghost upgrade:
+
+1. Read the version ranges in `ghost/core/shared/config/defaults.json` of the
+   production Ghost tag
+   ([v6.78.0](https://github.com/TryGhost/Ghost/blob/v6.78.0/ghost/core/shared/config/defaults.json);
+   older tags such as v6.65.0 use `ghost/core/core/shared/…`).
+2. Download the resolved patch versions from
+   `https://cdn.jsdelivr.net/npm/@tryghost/<package>@<version>/umd/`
+   (Search CSS: `main.css` → `sodo-search.min.css`).
+3. Update the table, run `pnpm test:ci`.
+
+### Font
+
+Source Serif 4 from `@fontsource-variable/source-serif-4` **5.3.1** (`opsz`
+builds, downloaded 2026-11-20):
+
+| File in `assets/fonts/` | SHA-256 |
 | --- | --- |
 | `source-serif-4-latin-opsz-normal.woff2` | `f2ea9c12d2fe9bd3a9589b02ad2c0909da88f30938c91adc838c4f4098f9f9e0` |
 | `source-serif-4-latin-opsz-italic.woff2` | `96e6393209728ab93c334ae739af8a040cd2006c82e8614d6465a8084db88f89` |
 | `source-serif-4-latin-ext-opsz-normal.woff2` | `155f6e701097cc269cf8d5d7ac86795f263f1afbeb47c14d1d747108c9335389` |
 | `source-serif-4-latin-ext-opsz-italic.woff2` | `2078240cee94e627d0e180d56d74a11b2a1d387bbd61a9b7269f0a43df756896` |
 
-To update, download the same files from
+Update: download from
 `https://cdn.jsdelivr.net/npm/@fontsource-variable/source-serif-4@<version>/files/`,
-copy the `unicode-range` values from the package's `opsz.css` and
-`opsz-italic.css` into `assets/css/custom.css` if they changed, and record the
-new version and hashes here.
+compare `unicode-range` in the package's `opsz.css` / `opsz-italic.css` with
+`assets/css/custom.css`, update the table.
 
 ## License
 
-MIT, matching upstream Casper. See [LICENSE](LICENSE).
+Theme: **MIT**, like Casper ([LICENSE](LICENSE)). Source Serif 4: **SIL Open
+Font License 1.1** (`assets/fonts/OFL.txt`). Files in `assets/jsdelivr/`:
+**MIT**, © Ghost Foundation.
