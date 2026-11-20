@@ -40,7 +40,7 @@ jobs:
         run: pnpm zip
 
       - name: Validate theme archive
-        run: pnpm exec gscan --verbose -z dist/miuh-ghost-theme.zip
+        run: pnpm exec gscan --fatal --verbose -z dist/miuh-ghost-theme.zip
 
       - name: Deploy theme
         uses: TryGhost/action-deploy-theme@b1ff2a5eeac1d5438a0aab35eb996fe4010d889e # v2.0.4
