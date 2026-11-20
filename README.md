@@ -2,8 +2,8 @@
 
 Privacy-focused Ghost theme based on [Casper](https://github.com/TryGhost/Casper),
 used on [michaeluhrich.xyz](https://michaeluhrich.xyz/). Fonts and Ghost UI
-assets are served locally; full GDPR compliance still depends on the Ghost and
-server setup.
+assets are served locally to reduce third-party requests. This alone does not
+make a site GDPR compliant; that depends on the whole Ghost and server setup.
 
 <a href="https://michaeluhrich.xyz/">
   <picture>
