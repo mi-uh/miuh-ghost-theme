@@ -72,8 +72,8 @@ container is recreated; the site is briefly offline.**
 
 ### Privacy checklist
 
-The theme and the server configuration above keep fonts, Portal, Search and
-Comments off third-party servers. **Still to check per site** (no legal advice):
+With the server configuration above, fonts, Portal, Search and Comments are
+served from your own domain. **Still to check per site** (no legal advice):
 
 | Area | Check |
 | --- | --- |
