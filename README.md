@@ -69,6 +69,7 @@ container is recreated; the site is briefly offline.**
 | | Color scheme | Auto |
 | Design & branding → Homepage | Header style | Hidden |
 | | Feed layout | Classic |
+| Analytics | Member sources | **Off** (otherwise Ghost stores a visit history in session storage) |
 
 ### Privacy checklist
 
