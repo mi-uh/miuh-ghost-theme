@@ -18,7 +18,7 @@ configuration.
 - Local Portal, Search, and Comments assets
 - Generated production assets included in `assets/built/`
 - Automated validation on pull requests and `main`, with release-based deployment
-- Compatible with Ghost 6.x; package metadata supports Ghost 5 and newer
+- Requires Ghost 6.x
 
 ## Installation and updates
 
