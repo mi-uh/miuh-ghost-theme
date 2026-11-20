@@ -94,24 +94,27 @@ Admin if the automated deployment is unavailable.
 
 ## Updating local Ghost assets
 
-  The currently vendored UI assets target Ghost 6.65.0 and were resolved on
-  2026-09-26:
+The currently vendored UI assets target Ghost 6.78.0 and were resolved on
+2026-11-20:
 
-  | Asset | Version | SHA-256 |
-  | --- | --- | --- |
-  | Portal | 2.71.220 | `dd2d06197e8faf6408f327a24ff10ac529ee6184f0aa2cbfeb3ec0eea6fd88e9` |
-  | Sodo Search JavaScript | 1.8.584 | `cec87d6847c050ff6c30674c5f16053b857a4f237901734f93c5445d3fdd9e89` |
-  | Sodo Search CSS | 1.8.584 | `8ccd755b66f88bcac9aee9f9c0a0c97fea3610d71d222f3af122b8ef0a053e67` |
-  | Comments UI | 1.6.317 | `719774932c3a2fc4048fe9edf97a14e207e04876cce166e8867cc5e781c9cf00` |
+| Asset | Version | SHA-256 |
+| --- | --- | --- |
+| Portal | 2.72.36 | `bf97c0a94eb564f0d3192d9ee1ea7534a0ed82c109c5111630076aed1e715583` |
+| Sodo Search JavaScript | 1.9.7 | `5ff29320840e94565b12c15d90a4ab9c884a7e01783e17ac329f27dba3395688` |
+| Sodo Search CSS | 1.9.7 | `8351196b62e6c27858441427a27c8be4d08f0e2b3684c4c280de7bbfe2a2160a` |
+| Comments UI | 1.6.456 | `af76fd41bd86e030ddff5b7bfa627da0ae1aa7f4534184fb92270c0209a33c34` |
 
-  When updating these files:
+When updating these files:
 
-  1. Determine the Ghost version running in production.
-  2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.65.0/ghost/core/core/shared/config/defaults.json) from the matching Ghost release tag.
-  3. Resolve jsDelivr's version range and download that exact patch version.
-  4. Replace the corresponding files in `assets/jsdelivr/`.
-  5. Record the resolved versions and SHA-256 hashes in the table above.
-  6. Run `pnpm test:ci` before opening a pull request.
+1. Determine the Ghost version running in production.
+2. Check [`defaults.json`](https://github.com/TryGhost/Ghost/blob/v6.78.0/ghost/core/shared/config/defaults.json)
+   from the matching Ghost release tag. Current tags keep it at
+   `ghost/core/shared/config/defaults.json`; older tags such as v6.65.0 use
+   `ghost/core/core/shared/config/defaults.json`.
+3. Resolve jsDelivr's version range and download that exact patch version.
+4. Replace the corresponding files in `assets/jsdelivr/`.
+5. Record the resolved versions and SHA-256 hashes in the table above.
+6. Run `pnpm test:ci` before opening a pull request.
 
 ## License
 
