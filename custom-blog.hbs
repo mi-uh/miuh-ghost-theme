@@ -1,5 +1,12 @@
 {{!< default}}
 
+{{!--
+    Lists the latest posts grouped by primary tag.
+    Each tag needs its own posts query, so only tags that have posts are
+    rendered and the number of posts per tag is limited explicitly.
+    The tag heading links to the full tag archive.
+--}}
+
 <main class="site-main outer">
     <div class="inner">
 
@@ -9,28 +16,31 @@
             </header>
         {{/post}}
 
-        {{#get "tags" limit="100" order="name asc"}}
+        {{#get "tags" limit="all" include="count.posts" order="name asc"}}
             {{#foreach tags}}
+                {{#if count.posts}}
 
-                <section class="blog-category">
-                    <h2>
-                        <a href="{{url}}">{{name}}</a>
-                    </h2>
+                    <section class="blog-category">
+                        <h2>
+                            <a href="{{url}}">{{name}}</a>
+                        </h2>
 
-                    <div class="post-feed">
-                        {{#get "posts"
-                            filter="primary_tag:{{slug}}"
-                            include="authors,tags"
-                            order="published_at desc"}}
+                        <div class="post-feed">
+                            {{#get "posts"
+                                filter="primary_tag:{{slug}}"
+                                include="authors,tags"
+                                order="published_at desc"
+                                limit="15"}}
 
-                            {{#foreach posts}}
-                                {{> "post-card"}}
-                            {{/foreach}}
+                                {{#foreach posts}}
+                                    {{> "post-card"}}
+                                {{/foreach}}
 
-                        {{/get}}
-                    </div>
-                </section>
+                            {{/get}}
+                        </div>
+                    </section>
 
+                {{/if}}
             {{/foreach}}
         {{/get}}
 

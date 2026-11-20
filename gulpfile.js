@@ -88,7 +88,6 @@ function zipper(done) {
             '!pnpm-lock.yaml',
             '!pnpm-workspace.yaml',
             '!yarn.lock',
-            '!renovate.json',
             '!docs', '!docs/**',
             '!AGENTS.md',
             '!CLAUDE.md',
