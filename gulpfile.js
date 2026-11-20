@@ -85,6 +85,7 @@ function zipper(done) {
             '!CLAUDE.md',
             '!assets/built/*.map',
             '!assets/built/global.css',
+            '!assets/screenshot-desktop-dark.jpg',
             '!gulpfile.js'
         ], {encoding: false}),
         zip(filename),

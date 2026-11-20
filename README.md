@@ -9,7 +9,7 @@ UI assets locally to reduce third-party requests. Overall privacy and GDPR
 compliance still depend on the complete Ghost, server, analytics, and content
 configuration.
 
-[![Desktop preview of the miuh Ghost theme](assets/screenshot-desktop.jpg)](https://michaeluhrich.xyz/)
+[![Desktop preview of the miuh Ghost theme in dark mode](assets/screenshot-desktop-dark.jpg)](https://michaeluhrich.xyz/)
 
 ## Highlights
 
@@ -116,6 +116,26 @@ When updating these files:
 4. Replace the corresponding files in `assets/jsdelivr/`.
 5. Record the resolved versions and SHA-256 hashes in the table above.
 6. Run `pnpm test:ci` before opening a pull request.
+
+## Self-hosted font
+
+Source Serif 4 is served from `assets/fonts/` under the SIL Open Font License
+1.1 (`assets/fonts/OFL.txt`). The files come from the npm package
+`@fontsource-variable/source-serif-4` 5.3.1 (variable weight and optical size,
+`opsz` builds) and were downloaded on 2026-11-20:
+
+| File | SHA-256 |
+| --- | --- |
+| `source-serif-4-latin-opsz-normal.woff2` | `f2ea9c12d2fe9bd3a9589b02ad2c0909da88f30938c91adc838c4f4098f9f9e0` |
+| `source-serif-4-latin-opsz-italic.woff2` | `96e6393209728ab93c334ae739af8a040cd2006c82e8614d6465a8084db88f89` |
+| `source-serif-4-latin-ext-opsz-normal.woff2` | `155f6e701097cc269cf8d5d7ac86795f263f1afbeb47c14d1d747108c9335389` |
+| `source-serif-4-latin-ext-opsz-italic.woff2` | `2078240cee94e627d0e180d56d74a11b2a1d387bbd61a9b7269f0a43df756896` |
+
+To update, download the same files from
+`https://cdn.jsdelivr.net/npm/@fontsource-variable/source-serif-4@<version>/files/`,
+copy the `unicode-range` values from the package's `opsz.css` and
+`opsz-italic.css` into `assets/css/custom.css` if they changed, and record the
+new version and hashes here.
 
 ## License
 
