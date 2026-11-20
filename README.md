@@ -73,7 +73,8 @@ container is recreated; the site is briefly offline.**
 ### Privacy checklist
 
 With the server configuration above, fonts, Portal, Search and Comments are
-served from your own domain. **Still to check per site** (no legal advice):
+served from your own domain, without requests to third-party servers.
+**Still to check per site** (no legal advice):
 
 | Area | Check |
 | --- | --- |
