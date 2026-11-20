@@ -16,7 +16,7 @@
             </header>
         {{/post}}
 
-        {{#get "tags" limit="all" include="count.posts" order="name asc"}}
+        {{#get "tags" limit="100" include="count.posts" order="name asc"}}
             {{#foreach tags}}
                 {{#if count.posts}}
 
