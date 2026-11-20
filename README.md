@@ -16,6 +16,7 @@ configuration.
 - Warm editorial design with matching light and dark modes
 - Custom styling isolated in `assets/css/custom.css` for easier upstream merges
 - Local Portal, Search, and Comments assets
+- Self-hosted Source Serif 4 font (SIL OFL 1.1), no third-party font requests
 - Generated production assets included in `assets/built/`
 - Automated validation on pull requests and `main`, with release-based deployment
 - Requires Ghost 6.x
