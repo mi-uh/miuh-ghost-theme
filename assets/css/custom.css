@@ -97,6 +97,14 @@
     --hf-accent-light: #d19a6a;
     --hf-text-dim: rgba(244, 241, 235, 0.6);
 
+    /* Stacked header, navigation row (tablet/desktop): paper-toned in light
+       mode as a transition between the dark logo bar and the page.
+       Dark mode switches these back to the header colors (section 7). */
+    --nav-row-bg: #ebe5da;
+    --nav-row-line: #ddd5c8;
+    --nav-row-link: #6f665c;           /* 4.6:1 on #ebe5da */
+    --nav-row-link-hover: #1f1b16;
+
     /* Fonts — serif for reading, system sans for UI and meta */
     --font-serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
     --font-mono: "SF Mono", "Fira Code", Menlo, Consolas, "Courier New", monospace;
@@ -245,6 +253,31 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--color-nav-divider);
 }
 
+/* Stacked header: dark logo bar (80px, Casper) above a paper-toned
+   navigation row (56px). Below 768px Casper shows a single bar + burger. */
+@media (min-width: 768px) {
+    .is-head-stacked .gh-head {
+        background: linear-gradient(to bottom,
+            var(--color-header-footer) 0 80px,
+            var(--nav-row-bg) 80px);
+    }
+
+    .is-head-stacked .gh-head-menu::before,
+    .is-head-stacked .gh-head-menu::after,
+    .is-head-stacked.has-cover .gh-head-menu::before,
+    .is-head-stacked.has-cover .gh-head-menu::after {
+        background-color: var(--nav-row-line);
+    }
+
+    .is-head-stacked .gh-head-menu .nav a {
+        color: var(--nav-row-link);
+    }
+
+    .is-head-stacked .gh-head-menu .nav a:hover {
+        color: var(--nav-row-link-hover);
+    }
+}
+
 /* Actions — Sign in / Subscribe */
 .gh-head-link:hover {
     color: var(--color-body-bg);
@@ -294,8 +327,8 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgba(244, 241, 235, 0.7);
 }
 
-/* Desktop: consistent header font sizes */
-@media (min-width: 992px) {
+/* Tablet and desktop: consistent header font sizes */
+@media (min-width: 768px) {
     .gh-head-actions a:not([class*="gh-button"]) {
         font-size: 1.3rem;
     }
@@ -508,6 +541,10 @@ h1, h2, h3, h4, h5, h6 {
 html.dark-mode body {
     color: var(--dark-text);
     --color-secondary-text: var(--dark-meta);
+    --nav-row-bg: var(--color-header-footer);
+    --nav-row-line: var(--color-nav-divider);
+    --nav-row-link: var(--hf-text-dim);
+    --nav-row-link-hover: var(--color-nav-link);
 }
 
 html.dark-mode :is(.post-card-title, .post-card-featured, .article-title, .footer-cta-title, .pagination a, .author-profile-location, .article-byline-meta .author-name a) {
@@ -560,6 +597,10 @@ html.dark-mode .site-footer {
     html.auto-color body {
         color: var(--dark-text);
         --color-secondary-text: var(--dark-meta);
+        --nav-row-bg: var(--color-header-footer);
+        --nav-row-line: var(--color-nav-divider);
+        --nav-row-link: var(--hf-text-dim);
+        --nav-row-link-hover: var(--color-nav-link);
     }
 
     html.auto-color :is(.post-card-title, .post-card-featured, .article-title, .footer-cta-title, .pagination a, .author-profile-location, .article-byline-meta .author-name a) {
