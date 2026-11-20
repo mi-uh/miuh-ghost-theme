@@ -3,7 +3,7 @@
 Privacy-focused Ghost theme based on [Casper](https://github.com/TryGhost/Casper),
 used on [michaeluhrich.xyz](https://michaeluhrich.xyz/). Fonts and Ghost UI
 assets are served locally to reduce third-party requests. This alone does not
-make a site GDPR compliant; that depends on the whole Ghost and server setup.
+make a site GDPR compliant; see the [privacy checklist](#privacy-checklist).
 
 <a href="https://michaeluhrich.xyz/">
   <picture>
@@ -69,6 +69,20 @@ container is recreated; the site is briefly offline.**
 | | Color scheme | Auto |
 | Design & branding → Homepage | Header style | Hidden |
 | | Feed layout | Classic |
+
+### Privacy checklist
+
+The theme and the server configuration above keep fonts, Portal, Search and
+Comments off third-party servers. **Still to check per site** (no legal advice):
+
+| Area | Check |
+| --- | --- |
+| Newsletter | Mail provider (e.g. Mailgun) needs a data processing agreement; disable open/click tracking in **Settings → Analytics** if unused |
+| Paid members | Stripe checkout loads Stripe's own scripts |
+| Content | Embeds (YouTube, X, …) and Unsplash images load from third parties |
+| Analytics | Ghost's web analytics and scripts added via Code injection need a legal basis |
+| Server | Retention of logs with IP addresses; hosting agreement |
+| Legal pages | Privacy policy and imprint reflect all of the above |
 
 ## Release
 
