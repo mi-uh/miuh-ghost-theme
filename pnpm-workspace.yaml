@@ -11,8 +11,6 @@ pnpmfile: []
 overrides:
   # archiver still requests minimatch 10 through readdir-glob 3.
   "minimatch@>=7 <11.0.1": 11.0.5
-  # Keep the legacy release-utils error dependency on a patched CommonJS uuid.
-  "@tryghost/errors@1>uuid": 14.0.3
 
 # The minimumReleaseAge supply-chain policy rejects recently published packages.
 # @tryghost/theme-translations is a first-party Ghost dependency we pin exactly,

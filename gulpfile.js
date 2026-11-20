@@ -1,8 +1,5 @@
 const {series, watch, src, dest, parallel} = require('gulp');
 const pump = require('pump');
-const path = require('path');
-const releaseUtils = require('@tryghost/release-utils');
-const inquirer = require('inquirer');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -11,7 +8,6 @@ const zip = require('gulp-zip').default;
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const beeper = require('beeper');
-const fs = require('fs');
 
 // postcss plugins
 const autoprefixer = require('autoprefixer');
@@ -21,10 +17,6 @@ const easyimport = require('postcss-easy-import');
 
 // translations support
 const { mergeLocales } = require('@tryghost/theme-translations/build');
-
-const REPO = 'mi-uh/miuh-ghost-theme';
-const REPO_READONLY = REPO;
-const CHANGELOG_PATH = path.join(process.cwd(), '.', 'changelog.md');
 
 function serve(done) {
     livereload.listen();
@@ -117,80 +109,3 @@ const build = series(css, js, locales);
 exports.build = build;
 exports.zip = series(build, zipper);
 exports.default = series(build, serve, watcher);
-
-exports.release = async () => {
-    // @NOTE: https://pnpm.io/cli/version
-    // require(./package.json) can run into caching issues, this re-reads from file everytime on release
-    let packageJSON = JSON.parse(fs.readFileSync('./package.json'));
-    const newVersion = packageJSON.version;
-
-    if (!newVersion || newVersion === '') {
-        console.log(`Invalid version: ${newVersion}`);
-        return;
-    }
-
-    console.log(`\nCreating release for ${newVersion}...`);
-
-    const githubToken = process.env.GST_TOKEN;
-
-    if (!githubToken) {
-        console.log('Please configure your environment with a GitHub token located in GST_TOKEN');
-        return;
-    }
-
-    try {
-        const prompt = inquirer.createPromptModule();
-        const result = await prompt([{
-            type: 'input',
-            name: 'compatibleWithGhost',
-            message: 'Which version of Ghost is it compatible with?',
-            default: '6.0.0'
-        }]);
-
-        const compatibleWithGhost = result.compatibleWithGhost;
-
-        const releasesResponse = await releaseUtils.releases.get({
-            userAgent: 'miuh-ghost-theme',
-            uri: `https://api.github.com/repos/${REPO_READONLY}/releases`
-        });
-
-        if (!releasesResponse || !releasesResponse) {
-            console.log('No releases found. Skipping...');
-            return;
-        }
-
-        let previousVersion = releasesResponse[0].tag_name || releasesResponse[0].name;
-        console.log(`Previous version: ${previousVersion}`);
-
-        const changelog = new releaseUtils.Changelog({
-            changelogPath: CHANGELOG_PATH,
-            folder: path.join(process.cwd(), '.')
-        });
-
-        changelog
-            .write({
-                githubRepoPath: `https://github.com/${REPO}`,
-                lastVersion: previousVersion
-            })
-            .sort()
-            .clean();
-
-        const newReleaseResponse = await releaseUtils.releases.create({
-            draft: true,
-            preRelease: false,
-            tagName: 'v' + newVersion,
-            releaseName: newVersion,
-            userAgent: 'miuh-ghost-theme',
-            uri: `https://api.github.com/repos/${REPO}/releases`,
-            github: {
-                token: githubToken
-            },
-            content: [`**Compatible with Ghost ≥ ${compatibleWithGhost}**\n\n`],
-            changelogPath: CHANGELOG_PATH
-        });
-        console.log(`\nRelease draft generated: ${newReleaseResponse.releaseUrl}\n`);
-    } catch (err) {
-        console.error(err);
-        process.exit(1);
-    }
-};
