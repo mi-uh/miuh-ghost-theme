@@ -6,3 +6,9 @@
 *.gif binary
 *.webp binary
 *.zip binary
+
+/AGENTS.md export-ignore
+/CLAUDE.md export-ignore
+/pnpm-lock.yaml export-ignore
+/pnpm-workspace.yaml export-ignore
+/.gitattributes export-ignore
