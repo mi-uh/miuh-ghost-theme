@@ -506,8 +506,10 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid var(--color-nav-divider);
 }
 
+/* Middle column sized to its links, so the row stays on one line;
+   equal outer columns keep it centered. */
 .site-footer .inner {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     color: var(--color-body-bg);
 }
 
@@ -517,6 +519,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .site-footer a {
     transition: color 0.2s ease;
+}
+
+/* Desktop: "Powered by Ghost" at the right edge, mirroring the copyright */
+@media (min-width: 768px) {
+    .site-footer .gh-powered-by {
+        justify-self: end;
+    }
 }
 
 /* Mobile: single-column footer, hide dot separators */
