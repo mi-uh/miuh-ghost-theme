@@ -18,6 +18,7 @@ make a site GDPR compliant; see the [privacy checklist](#privacy-checklist).
 - Self-hosted Source Serif 4, local Portal, Search and Comments
 - **Blog** page template (`custom-blog.hbs`): posts grouped by primary tag
 - **Homepage subheadline** setting below the site description
+- **Consent banner** for self-hosted Matomo
 - Custom styles isolated in `assets/css/custom.css`
 
 ## Requirements
@@ -70,6 +71,25 @@ container is recreated; the site is briefly offline.**
 | Design & branding → Homepage | Header style | Hidden |
 | | Feed layout | Classic |
 | Analytics | Member sources | **Off** (otherwise Ghost stores a visit history in session storage) |
+
+### Matomo consent banner
+
+Matomo loads only after the visitor clicks *Akzeptieren*. The decision is
+stored in `localStorage` for 12 months. The footer button
+*Datenschutz-Einstellungen* reopens the banner, and so does any element with
+`data-consent-open`, also in page content.
+
+Set per environment in **Design & branding → Site wide**:
+
+| Setting | Value |
+| --- | --- |
+| Matomo URL | `https://stats.example.com/` |
+| Matomo site ID | e.g. `1` |
+| Privacy URL | `/datenschutz/` (default) |
+
+If URL or site ID is empty, there is **no banner and no tracking**. Remove any
+Matomo snippet from **Settings → Code injection**, or it keeps tracking
+without consent.
 
 ### Privacy checklist
 
