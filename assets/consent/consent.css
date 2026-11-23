@@ -1,0 +1,167 @@
+/* Consent banner (partials/consent-banner.hbs) and footer button.
+   Uses the dark header/footer palette from custom.css in light and dark
+   mode, so contrast is the same in both. Fixed bar: no layout shift. */
+
+.consent-banner {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 14px max(4vmin, 16px);
+    color: var(--color-body-bg, #f4f1eb);                /* 15.7:1 on #1a1714 */
+    font-family: var(--font-sans);
+    font-size: 1.4rem;
+    line-height: 1.5;
+    background: var(--color-header-footer, #1a1714);
+    border-top: 1px solid rgba(244, 241, 235, 0.15);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.consent-banner[hidden] {
+    display: none;
+}
+
+.consent-banner:focus {
+    outline: none;
+}
+
+.consent-banner:focus-visible {
+    outline: 2px solid var(--hf-accent-light, #d19a6a);
+    outline-offset: -4px;
+}
+
+.consent-banner-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.consent-banner-text {
+    flex: 1 1 420px;
+    margin: 0;
+}
+
+.consent-banner-text a {
+    color: var(--hf-accent-light, #d19a6a);              /* 7.0:1 on #1a1714 */
+    text-decoration: underline;
+}
+
+.consent-banner-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Both buttons share one class: identical size and look. */
+.consent-banner-button {
+    min-width: 128px;
+    min-height: 44px;
+    padding: 0 18px;
+    color: var(--color-body-bg, #f4f1eb);
+    font: inherit;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid var(--color-body-bg, #f4f1eb);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.consent-banner-button:hover {
+    color: var(--color-header-footer, #1a1714);
+    background: var(--color-body-bg, #f4f1eb);
+}
+
+.consent-banner :is(a, button):focus-visible,
+.consent-footer-button:focus-visible {
+    outline: 2px solid var(--hf-accent-light, #d19a6a);
+    outline-offset: 2px;
+}
+
+/* Keep footer links (privacy policy, imprint) reachable above the bar. */
+html.has-consent-banner body {
+    padding-bottom: var(--consent-banner-height, 0);
+}
+
+@media (max-width: 767px) {
+    .consent-banner-actions {
+        flex: 1 1 100%;
+    }
+
+    .consent-banner-button {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .consent-banner:not([hidden]) {
+        animation: consent-banner-in 0.2s ease-out;
+    }
+
+    .consent-banner-button {
+        transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .consent-footer-button {
+        transition: color 0.2s ease;
+    }
+}
+
+@keyframes consent-banner-in {
+    from {
+        transform: translateY(100%);
+    }
+}
+
+/* Footer: button sits in the secondary navigation row, styled like its
+   links, with the same dot separator (hidden on mobile like the links). */
+.site-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.consent-footer-button {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0 10px;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font: inherit;
+    line-height: 2em;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.consent-footer-button[hidden] {
+    display: none;
+}
+
+.consent-footer-button:hover {
+    color: #fff;
+}
+
+.site-footer-nav ul + .consent-footer-button::before {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 2px;
+    margin: 0 10px 0 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+}
+
+@media (max-width: 767px) {
+    .site-footer-nav ul + .consent-footer-button::before {
+        display: none;
+    }
+}
