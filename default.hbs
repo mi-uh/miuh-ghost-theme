@@ -16,6 +16,7 @@
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "consent/consent.css"}}" />
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
@@ -94,6 +95,7 @@
                 </div>
                 <nav class="site-footer-nav">
                     {{navigation type="secondary"}}
+                    <button type="button" class="consent-footer-button" data-consent-open hidden>Datenschutz-Einstellungen</button>
                 </nav>
             </div>
             <div class="gh-powered-by"><a href="https://ghost.org/" target="_blank" rel="noopener">{{t "Powered by Ghost"}}</a></div>
@@ -107,8 +109,11 @@
     {{> "lightbox"}}
 {{/is}}
 
+{{> "consent-banner"}}
+
 {{!-- Scripts - handle responsive videos, infinite scroll, floating headers, and galleries --}}
 <script src="{{asset "built/casper.js"}}" defer></script>
+<script src="{{asset "consent/consent.js"}}" defer></script>
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}

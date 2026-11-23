@@ -173,6 +173,18 @@
                 "type": "boolean",
                 "default": true,
                 "group": "post"
+            },
+            "matomo_url": {
+                "type": "text",
+                "default": ""
+            },
+            "matomo_site_id": {
+                "type": "text",
+                "default": ""
+            },
+            "privacy_url": {
+                "type": "text",
+                "default": "/datenschutz/"
             }
         }
     }

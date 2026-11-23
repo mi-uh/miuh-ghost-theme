@@ -1,0 +1,20 @@
+{{!-- Consent banner for Matomo. Hidden until assets/consent/consent.js shows it,
+so without JavaScript there is neither a banner nor tracking.
+Any element with data-consent-open (also in page content) reopens it.
+Matomo URL and site ID come from the theme settings; if either is empty,
+the banner stays hidden and Matomo is not loaded.
+The privacy policy link comes from the theme setting privacy_url
+(default /datenschutz/). --}}
+<section id="consent-banner" class="consent-banner" role="region" aria-label="Datenschutz-Einstellungen" tabindex="-1" hidden
+    data-matomo-url="{{@custom.matomo_url}}" data-matomo-site-id="{{@custom.matomo_site_id}}">
+    <div class="consent-banner-inner">
+        <p class="consent-banner-text">
+            Darf diese Website mit Matomo erfassen, welche Seiten aufgerufen werden? Ohne Cookies, mit gekürzter IP-Adresse, auf eigenem Server.
+            Mehr in der <a href="{{#if @custom.privacy_url}}{{@custom.privacy_url}}{{else}}/datenschutz/{{/if}}">Datenschutzerklärung</a>. Änderbar jederzeit über „Datenschutz-Einstellungen“ im Footer.
+        </p>
+        <div class="consent-banner-actions">
+            <button type="button" class="consent-banner-button" data-consent-accept>Akzeptieren</button>
+            <button type="button" class="consent-banner-button" data-consent-deny>Ablehnen</button>
+        </div>
+    </div>
+</section>
