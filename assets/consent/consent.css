@@ -165,3 +165,22 @@ html.has-consent-banner body {
         display: none;
     }
 }
+
+/* Reopen button inside page content (e.g. privacy policy). Uses the text
+   colour, so it reads in light and dark mode. */
+.gh-content button[data-consent-open] {
+    min-height: 44px;
+    padding: 0 18px;
+    color: inherit;
+    font: inherit;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gh-content button[data-consent-open]:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
